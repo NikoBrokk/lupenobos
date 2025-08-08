@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getCollection } from "astro:content";
+const posts = (await getCollection("articles")).sort((a,b)=> b.data.date.getTime()-a.data.date.getTime());
+---
+<BaseLayout title="Artikler – Lupen OBOS">
+  <h1 class="mb-4">Artikler</h1>
+  <div class="grid md:grid-cols-2 gap-6">
+    {posts.map((p)=>(<PostCard post={p} />))}
+  </div>
+</BaseLayout>

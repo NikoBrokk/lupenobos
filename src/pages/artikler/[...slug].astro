@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection('articles');
+  return posts.map((post) => ({
+    params: { slug: post.slug.split('/') },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+---
+<BaseLayout title={`${post.data.title} – Lupen OBOS`} description={post.data.excerpt}>
+  <article class="prose lg:prose-lg max-w-none">
+    {post.data.cover && <img src={post.data.cover} alt="" class="rounded-2xl w-full" />}
+    <h1>{post.data.title}</h1>
+    <p class="text-gray-500 text-sm">{post.data.date.toLocaleDateString('no-NO')} · {post.data.author}</p>
+    <slot />
+  </article>
+</BaseLayout>

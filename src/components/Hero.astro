@@ -1,0 +1,14 @@
+---
+const { kicker = "OBOS-ligaen", heading = "Data, kjærlighet og fotballnerding", sub = "Dybdeinnsikt i unge talenter, kamputvikling og trender – skrevet for både nerder og hverdagsfans." } = Astro.props;
+---
+<section class="py-10">
+  <div class="card bg-gradient-to-br from-brand-dark to-brand-light text-white">
+    <p class="opacity-90">{kicker}</p>
+    <h1 class="text-3xl md:text-4xl font-bold mt-2">{heading}</h1>
+    <p class="mt-3 max-w-2xl opacity-90">{sub}</p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/artikler/" class="badge border-white/30">Les analyser</a>
+      <a href="/talenter/" class="badge border-white/30">Unge spillere</a>
+    </div>
+  </div>
+</section>

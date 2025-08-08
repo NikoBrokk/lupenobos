@@ -1,0 +1,25 @@
+{
+  "name": "lupen-obos",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "astro": "^4.12.2",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/mdx": "^3.1.3",
+    "@tailwindcss/typography": "^0.5.10"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "tailwindcss": "^3.4.9",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.41"
+  }
+}

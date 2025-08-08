@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import PostCard from "../components/PostCard.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("articles")).sort((a,b)=> b.data.date.getTime()-a.data.date.getTime()).slice(0,6);
+---
+<BaseLayout title="Lupen OBOS – Innsikt i OBOS-ligaen">
+  <Hero />
+  <section class="grid md:grid-cols-2 gap-6 mt-6">
+    {posts.map((p)=>(<PostCard post={p} />))}
+  </section>
+</BaseLayout>
