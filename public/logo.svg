@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="40" viewBox="0 0 180 40">
-  <rect rx="8" width="180" height="40" fill="#0B1B3B"/>
-  <g transform="translate(10,8)">
-    <circle cx="10" cy="12" r="8" fill="#F0B90B"/>
-    <rect x="18" y="18" width="10" height="3" rx="1.5" fill="#F0B90B" transform="rotate(45 23 19.5)"/>
-    <text x="36" y="18" font-family="Inter, Arial, sans-serif" font-size="16" fill="white">Lupen OBOS</text>
-  </g>
-</svg>
