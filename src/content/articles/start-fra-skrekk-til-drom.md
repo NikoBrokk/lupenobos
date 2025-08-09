@@ -1,12 +1,11 @@
 
 ---
 title: "Fra skrekk til drøm: Hva i all verden har skjedd på Sør Arena?"
-date: 2025-08-08
+pubDate: 2025-08-08
 categories: ["Dypanalyse"]
 excerpt: "Start har gått fra kollaps i 2024 til opprykksjag i 2025 – her er hvorfor."
 cover: "/covers/start-2025.jpg"
 ---
-
 
 # Fra skrekk til drøm: Hva i all verden har skjedd på Sør Arena?
 
