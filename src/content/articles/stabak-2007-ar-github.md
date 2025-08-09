@@ -4,7 +4,7 @@ pubDate: 2025-08-09
 categories: ["OBOS-ligaen 2025", "Stabæk", "Talentutvikling"]
 excerpt: "Tre 17–18-åringer fra Stabæks 2007-kull har satt preg på OBOS-ligaen 2025 – vi ser nærmere på Spiten, Olderheim og Riise."
 cover: "/covers/stabaek-2007.jpg"
-----
+---
 
 ## Ungdomskull som preger OBOS-ligaen 2025
 Stabæk Fotball har fostret fram en rekke spennende unggutter, og spesielt årgang 2007 utmerker seg. Tre 17-18-åringer – Oskar Spiten-Nysæter, Sebastian Olderheim og Fillip Jenssen Riise – har allerede satt sitt preg på OBOS-ligaen 2025. Alle tre fikk sine gjennombrudd i fjor eller tidligere, og i inneværende sesong har de fortsatt utviklingen. Vi går nærmere inn på deres spilletid, prestasjoner og statistikk så langt i 2025 (kamper, mål, minutter, assists, m.m.), hvilke ekstreme ferdigheter som skiller dem ut, og hva supportere og eksperter sier. I tillegg ser vi på bakgrunnen rundt Spiten-Nysæters overgang til Molde, Riises fotballblod i årene (sønn av Bjørn Helge Riise, nevø av John Arne Riise) og hans nylige skade, og hvorfor mange mener Olderheim kan være et minst like stort talent som Spiten. Til slutt nevner vi kort de øvrige lovende Stabæk-ungguttene fra kull 2006, 2008 og 2009.
