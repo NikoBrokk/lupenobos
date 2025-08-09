@@ -2,8 +2,10 @@
 title: "Fra skrekk til drøm: Hva i all verden har skjedd på Sør Arena?"
 date: 2025-08-08
 author: "Lupen OBOS"
-categories: ["OBOS-ligaen", "Analyse", "IK Start"]
+tags: ["OBOS-ligaen", "Analyse", "IK Start"]  # bruk 'tags' hvis schemaet ditt forventer det
 slug: "start-fra-skrekk-til-drom"
+draft: false
+excerpt: "Kort oppsummering: hvorfor Start har snudd 2025-sesongen – struktur, spillestil og smartere spillerlogistikk."
 ---
 
 # Fra skrekk til drøm: Hva i all verden har skjedd på Sør Arena?
