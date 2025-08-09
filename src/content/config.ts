@@ -4,12 +4,11 @@ const articles = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    excerpt: z.string().max(200),
-    date: z.date(),
-    tags: z.array(z.string()).optional(),
-    author: z.string().default('Lupen OBOS'),
-    cover: z.string().optional()
-  })
+    description: z.string().optional(),
+    pubDate: z.coerce.date(),
+    image: z.string().optional(),   // f.eks. "/images/olderheim.jpg"
+    tag: z.string().optional(),     // f.eks. "Analyse"
+  }),
 });
 
 export const collections = { articles };
