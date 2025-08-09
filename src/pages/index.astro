@@ -1,14 +1,12 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/Hero.astro";
-import PostCard from "../components/PostCard.astro";
-import { getCollection } from "astro:content";
-
-const posts = (await getCollection("articles")).sort((a,b)=> b.data.date.getTime()-a.data.date.getTime()).slice(0,6);
+import Hero from "@/components/Hero.astro";
+import ArticleCard from "@/components/ArticleCard.astro";
+const articles = Astro.props.articles; // tilpass til din datakilde
 ---
-<BaseLayout title="Lupen OBOS – Innsikt i OBOS-ligaen">
-  <Hero />
-  <section class="grid md:grid-cols-2 gap-6 mt-6">
-    {posts.map((p)=>(<PostCard post={p} />))}
-  </section>
-</BaseLayout>
+<Hero />
+<section class="mx-auto max-w-5xl px-6 md:px-12 py-10">
+  <h2 class="sr-only">Siste</h2>
+  <div class="grid gap-6">
+    {articles.map(a => <ArticleCard {...a} />)}
+  </div>
+</section>
