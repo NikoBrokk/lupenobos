@@ -3,15 +3,27 @@ import { defineCollection, z } from "astro:content";
 const artikler = defineCollection({
   schema: z.object({
     title: z.string(),
-    // Tåler både ISO-streng og Date i frontmatter
     pubDate: z.union([z.string(), z.date()]).transform((d) => new Date(d)),
     excerpt: z.string().optional(),
     categories: z.array(z.string()).optional(),
-    cover: z.string().optional(),      // f.eks. "/covers/start-2025.jpg"
-    image: z.string().optional(),      // hvis noen artikler bruker "image" i stedet
-    description: z.string().optional(),// hvis du bruker "description"
-    tag: z.string().optional(),        // hvis du vil vise én tag i header
+    cover: z.string().optional(),
+    image: z.string().optional(),
+    description: z.string().optional(),
+    tag: z.string().optional(),
   }),
 });
 
-export const collections = { artikler };
+const articles = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    pubDate: z.union([z.string(), z.date()]).transform((d) => new Date(d)),
+    excerpt: z.string().optional(),
+    categories: z.array(z.string()).optional(),
+    cover: z.string().optional(),
+    image: z.string().optional(),
+    description: z.string().optional(),
+    tag: z.string().optional(),
+  }),
+});
+
+export const collections = { artikler, articles };
