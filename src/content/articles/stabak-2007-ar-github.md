@@ -1,6 +1,6 @@
 ---
 title: "Lupen: Stabæks 2007-årgang – Spiten, Olderheim og Riise"
-pubDate: 2025-08-09
+pubDate: "2025-08-09"
 categories: ["OBOS-ligaen 2025", "Stabæk", "Spillerprofiler"]
 excerpt: "Tre 17–18-åringer fra Stabæks 2007-kull har satt preg på OBOS-ligaen 2025 – vi ser nærmere på Spiten, Olderheim og Riise."
 cover: "/covers/stabaek-2007.jpg"
