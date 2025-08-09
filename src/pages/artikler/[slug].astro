@@ -1,39 +1,24 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection, getEntryBySlug } from "astro:content";
-
-export async function getStaticPaths() {
-  const posts = await getCollection("articles", (p) => !p.data?.draft);
-  return posts.map((post) => ({
-    params: { slug: post.slug }, // string, ikke array
-  }));
-}
-
+import { getEntryBySlug } from "astro:content";
+import { Markdown } from "astro/components";
 const { slug } = Astro.params;
-const entry = await getEntryBySlug("articles", slug);
+const entry = await getEntryBySlug("articles", slug!);
 if (!entry) throw new Error(`Fant ikke artikkel: ${slug}`);
-
-const { Content } = await entry.render();   // innholdskomponenten
-const data = entry.data ?? {};              // frontmatter
-
-const title = data.title ?? slug;
-
-// Dato som tekst (robust)
-let dateText = "";
-if (data.date) {
-  const d = typeof data.date === "string" ? new Date(data.date) : data.date;
-  if (d && !Number.isNaN(d.getTime?.())) dateText = d.toLocaleDateString("no-NO");
-}
+const { Content } = await entry.render();
 ---
-<BaseLayout title={`${title} – Lupen OBOS`} description={data.excerpt}>
-  <article class="prose lg:prose-lg max-w-none">
-    {data.cover && <img src={data.cover} alt={title} class="rounded-2xl w-full" />}
-    <h1>{title}</h1>
-    {(dateText || data.author) && (
-      <p class="text-gray-500 text-sm">
-        {dateText}{dateText && data.author ? " · " : ""}{data.author}
-      </p>
-    )}
+
+<main class="mx-auto max-w-3xl px-6 md:px-12 py-10 prose prose-invert">
+  <header class="mb-8">
+    <h1>{entry.data.title}</h1>
+    <p class="text-sm opacity-70">
+      {new Date(entry.data.pubDate).toLocaleDateString('no-NO')}
+      {entry.data.tag && ` · ${entry.data.tag}`}
+    </p>
+    {entry.data.image && <img src={entry.data.image} alt={entry.data.title} class="rounded-2xl" />}
+    {entry.data.description && <p class="mt-4">{entry.data.description}</p>}
+  </header>
+
+  <article>
     <Content />
   </article>
-</BaseLayout>
+</main>
