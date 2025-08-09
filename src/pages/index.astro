@@ -5,17 +5,44 @@ import Hero from "../components/Hero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import PostCard from "../components/PostCard.astro";
 import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
 
-// Hent artikler – justér path hvis du bruker content collections
-const posts = await Astro.glob("../content/articles/*.md");
+// Hent alle artikler fra content collection 'articles'
+const raw = await getCollection("articles");
 
-// Anta at filene har frontmatter: title, date, excerpt, cover, tags
-const sorted = posts.sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+// Trygg dato-parser
+const safeDate = (d) => {
+  const dt = new Date(d);
+  return Number.isNaN(dt.valueOf()) ? null : dt;
+};
 
-const nyeste = sorted[0];
-const profiler = sorted.filter(p => (p.frontmatter.categories || []).includes("Spillerprofil")).slice(0, 3);
-const dyp = sorted.filter(p => (p.frontmatter.categories || []).includes("Dypanalyse")).slice(0, 3);
+// Sorter og filtrer bort artikler uten gyldig pubDate
+const articles = raw
+  .filter((p) => safeDate(p.data.pubDate))
+  .sort((a, b) => +safeDate(b.data.pubDate) - +safeDate(a.data.pubDate));
+
+const latest = articles[0];
+const rest = articles.slice(1);
+
+// Hjelper for kategori-sjekk (tillater 'Spillerprofil' og 'Spillerprofiler')
+const hasCat = (entry, name) => {
+  const cats = (entry.data.categories || []).map((c) => String(c).toLowerCase());
+  return cats.includes(String(name).toLowerCase());
+};
+
+const profiler = rest
+  .filter((p) => hasCat(p, "Spillerprofil") || hasCat(p, "Spillerprofiler"))
+  .slice(0, 3);
+
+const dyp = rest
+  .filter((p) => hasCat(p, "Dypanalyse"))
+  .slice(0, 3);
+
+// Sett base-url for artikkelsider (endre til "/artikler" hvis ruten din heter det)
+const articleUrlBase = "/articles";
+const hrefFor = (entry) => `${articleUrlBase}/${entry.slug}`;
 ---
+
 <BaseLayout>
   <Header />
   <Hero />
@@ -23,15 +50,24 @@ const dyp = sorted.filter(p => (p.frontmatter.categories || []).includes("Dypana
   <!-- Nyeste artikkel -->
   <SectionHeader kicker="Ferskt" title="Nyeste artikkel" />
   <div class="mx-auto max-w-[var(--container)] px-4 sm:px-6">
-    {nyeste ? (
-      <a href={nyeste.url} class="grid md:grid-cols-2 gap-6 card overflow-hidden">
+    {latest ? (
+      <a href={hrefFor(latest)} class="grid md:grid-cols-2 gap-6 card overflow-hidden">
         <div class="aspect-[16/9]">
-          <img src={nyeste.frontmatter.cover || "/covers/placeholder.jpg"} alt="" class="w-full h-full object-cover" />
+          <img
+            src={latest.data.cover || "/covers/placeholder.jpg"}
+            alt={latest.data.title}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
         <div class="p-6">
-          <time class="text-xs text-white/60">{new Date(nyeste.frontmatter.date).toLocaleDateString('no-NO')}</time>
-          <h3 class="text-2xl font-bold mt-2" style="font-family: 'Space Grotesk', sans-serif;">{nyeste.frontmatter.title}</h3>
-          <p class="text-white/80 mt-3">{nyeste.frontmatter.excerpt}</p>
+          <time class="text-xs text-white/60">
+            {safeDate(latest.data.pubDate)?.toLocaleDateString("no-NO") ?? ""}
+          </time>
+          <h3 class="text-2xl font-bold mt-2" style="font-family: 'Space Grotesk', sans-serif;">
+            {latest.data.title}
+          </h3>
+          {latest.data.excerpt && <p class="text-white/80 mt-3">{latest.data.excerpt}</p>}
           <div class="mt-5"><span class="btn btn-primary">Les saken</span></div>
         </div>
       </a>
@@ -45,12 +81,12 @@ const dyp = sorted.filter(p => (p.frontmatter.categories || []).includes("Dypana
   <div class="mx-auto max-w-[var(--container)] px-4 sm:px-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {profiler.map((p) => (
       <PostCard
-        href={p.url}
-        title={p.frontmatter.title}
-        date={new Date(p.frontmatter.date).toLocaleDateString('no-NO')}
-        excerpt={p.frontmatter.excerpt}
+        href={hrefFor(p)}
+        title={p.data.title}
+        date={safeDate(p.data.pubDate)?.toLocaleDateString("no-NO") ?? ""}
+        excerpt={p.data.excerpt}
         tag="Spillerprofil"
-        cover={p.frontmatter.cover || "/players/placeholder.jpg"}
+        cover={p.data.cover || "/players/placeholder.jpg"}
       />
     ))}
   </div>
@@ -60,12 +96,12 @@ const dyp = sorted.filter(p => (p.frontmatter.categories || []).includes("Dypana
   <div class="mx-auto max-w-[var(--container)] px-4 sm:px-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-12">
     {dyp.map((p) => (
       <PostCard
-        href={p.url}
-        title={p.frontmatter.title}
-        date={new Date(p.frontmatter.date).toLocaleDateString('no-NO')}
-        excerpt={p.frontmatter.excerpt}
+        href={hrefFor(p)}
+        title={p.data.title}
+        date={safeDate(p.data.pubDate)?.toLocaleDateString("no-NO") ?? ""}
+        excerpt={p.data.excerpt}
         tag="Analyse"
-        cover={p.frontmatter.cover || "/covers/placeholder.jpg"}
+        cover={p.data.cover || "/covers/placeholder.jpg"}
       />
     ))}
   </div>
