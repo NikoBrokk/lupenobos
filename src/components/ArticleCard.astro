@@ -1,0 +1,18 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  excerpt?: string;
+  date?: string;
+  image?: string;
+}
+
+const { title, href, excerpt = "", date, image } = Astro.props as Props;
+---
+
+<article style="border:1px solid #e5e7eb; border-radius:12px; padding:16px;">
+  {image && <img src={image} alt={title} style="border-radius:8px;" />}
+  <h3><a href={href}>{title}</a></h3>
+  {date && <time>{date}</time>}
+  {excerpt && <p>{excerpt}</p>}
+</article>
