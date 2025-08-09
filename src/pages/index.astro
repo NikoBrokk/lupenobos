@@ -1,31 +1,74 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
-import ArticleCard from "../components/ArticleCard.astro";
-import { getCollection } from "astro:content";
+import SectionHeader from "../components/SectionHeader.astro";
+import PostCard from "../components/PostCard.astro";
+import Footer from "../components/Footer.astro";
 
-const articles = (await getCollection("articles"))
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+// Hent artikler – justér path hvis du bruker content collections
+const posts = await Astro.glob("../content/articles/*.md");
+
+// Anta at filene har frontmatter: title, date, excerpt, cover, tags
+const sorted = posts.sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+
+const nyeste = sorted[0];
+const profiler = sorted.filter(p => (p.frontmatter.categories || []).includes("Spillerprofil")).slice(0, 3);
+const dyp = sorted.filter(p => (p.frontmatter.categories || []).includes("Dypanalyse")).slice(0, 3);
 ---
+<BaseLayout>
+  <Header />
+  <Hero />
 
-<Hero />
+  <!-- Nyeste artikkel -->
+  <SectionHeader kicker="Ferskt" title="Nyeste artikkel" />
+  <div class="mx-auto max-w-[var(--container)] px-4 sm:px-6">
+    {nyeste ? (
+      <a href={nyeste.url} class="grid md:grid-cols-2 gap-6 card overflow-hidden">
+        <div class="aspect-[16/9]">
+          <img src={nyeste.frontmatter.cover || "/covers/placeholder.jpg"} alt="" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-6">
+          <time class="text-xs text-white/60">{new Date(nyeste.frontmatter.date).toLocaleDateString('no-NO')}</time>
+          <h3 class="text-2xl font-bold mt-2" style="font-family: 'Space Grotesk', sans-serif;">{nyeste.frontmatter.title}</h3>
+          <p class="text-white/80 mt-3">{nyeste.frontmatter.excerpt}</p>
+          <div class="mt-5"><span class="btn btn-primary">Les saken</span></div>
+        </div>
+      </a>
+    ) : (
+      <div class="text-white/70">Ingen artikler enda.</div>
+    )}
+  </div>
 
-<section class="mx-auto max-w-5xl px-6 md:px-12 py-10">
-  <h2 class="sr-only">Siste</h2>
+  <!-- Spillerprofiler -->
+  <SectionHeader kicker="Profiler" title="Spillerprofiler" />
+  <div class="mx-auto max-w-[var(--container)] px-4 sm:px-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {profiler.map((p) => (
+      <PostCard
+        href={p.url}
+        title={p.frontmatter.title}
+        date={new Date(p.frontmatter.date).toLocaleDateString('no-NO')}
+        excerpt={p.frontmatter.excerpt}
+        tag="Spillerprofil"
+        cover={p.frontmatter.cover || "/players/placeholder.jpg"}
+      />
+    ))}
+  </div>
 
-  {articles.length === 0 ? (
-    <p>Ingen artikler ennå. Kommer snart!</p>
-  ) : (
-    <div class="grid gap-6">
-      {articles.map((a) => (
-        <ArticleCard
-          title={a.data.title}
-          href={`/articles/${a.slug}/`}
-          excerpt={a.data.description}
-          date={a.data.pubDate.toLocaleDateString('no-NO')}
-          image={a.data.image}
-          tag={a.data.tag}
-        />
-      ))}
-    </div>
-  )}
-</section>
+  <!-- Dypanalyse -->
+  <SectionHeader kicker="Analyse" title="Dypanalyse" />
+  <div class="mx-auto max-w-[var(--container)] px-4 sm:px-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-12">
+    {dyp.map((p) => (
+      <PostCard
+        href={p.url}
+        title={p.frontmatter.title}
+        date={new Date(p.frontmatter.date).toLocaleDateString('no-NO')}
+        excerpt={p.frontmatter.excerpt}
+        tag="Analyse"
+        cover={p.frontmatter.cover || "/covers/placeholder.jpg"}
+      />
+    ))}
+  </div>
+
+  <Footer />
+</BaseLayout>
