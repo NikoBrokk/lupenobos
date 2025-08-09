@@ -1,12 +1,12 @@
+
 ---
 title: "Fra skrekk til drøm: Hva i all verden har skjedd på Sør Arena?"
-pubDate: 2025-08-08
-author: "Lupen OBOS"
-categories: ["OBOS-ligaen", "Analyse", "IK Start"]
-description: "Start har gått fra kollaps i 2024 til opprykksjag i 2025 – her er hvorfor."
-image: ""
-tag: "Analyse"
+date: 2025-08-08
+categories: ["Dypanalyse"]
+excerpt: "Start har gått fra kollaps i 2024 til opprykksjag i 2025 – her er hvorfor."
+cover: "/covers/start-2025.jpg"
 ---
+
 
 # Fra skrekk til drøm: Hva i all verden har skjedd på Sør Arena?
 
