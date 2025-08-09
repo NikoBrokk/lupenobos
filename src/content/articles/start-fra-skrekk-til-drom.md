@@ -1,4 +1,3 @@
-
 ---
 title: "Fra skrekk til drøm: Hva i all verden har skjedd på Sør Arena?"
 pubDate: 2025-08-08
