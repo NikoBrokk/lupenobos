@@ -1,22 +1,25 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./src/**/*.{astro,html,md,mdx}"],
+module.exports = {
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
       colors: {
-        brand: {
-          dark: "#0B1B3B",   // mørkeblå
-          light: "#0F285B",
-          accent: "#F0B90B"  // gul aksent
+        lupen: {
+          bg: "#0A1C38",        // mørk blå bakgrunn
+          primary: "#133A78",   // dyp blå
+          accent: "#1BB56C",    // grønn (OBOS-inspirert)
+          ink: "#0E1220",       // nesten-svart tekst
+          card: "#0F2546",      // mørk blå til kort
         }
       },
-      fontFamily: {
-        sans: ["ui-sans-serif", "system-ui", "Inter", "Arial", "sans-serif"]
+      boxShadow: {
+        soft: "0 10px 30px rgba(10,28,56,0.25)",
+        ring: "0 0 0 3px rgba(27,181,108,0.25)"
       },
       borderRadius: {
-        '2xl': '1.25rem'
+        xl2: "1.25rem"
       }
     }
   },
-  plugins: [require("@tailwindcss/typography")]
-}
+  plugins: [require('@tailwindcss/typography')]
+};
