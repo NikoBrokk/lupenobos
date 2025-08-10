@@ -1,9 +1,18 @@
 ---
-const { href="#", title, excerpt="", date="", tag="", cover="/covers/placeholder.jpg" } = Astro.props;
+const {
+  slug,                               // NY
+  title,
+  excerpt = "",
+  date = "",
+  tag = "",
+  cover = "/covers/placeholder.jpg",
+} = Astro.props;
+
+const href = `/artikler/${slug}/`;     // NY: alltid norsk rute
 ---
 <a href={href} class="group card overflow-hidden block">
   <div class="relative aspect-[16/9] bg-white/5">
-    <img src={cover} alt="" class="h-full w-full object-cover transition group-hover:scale-[1.02]" />
+    <img src={cover} alt={title} class="h-full w-full object-cover transition group-hover:scale-[1.02]" />
     {tag && <span class="absolute top-3 left-3 text-xs px-2 py-1 rounded-full bg-black/50 border border-white/10">{tag}</span>}
   </div>
   <div class="p-5">
