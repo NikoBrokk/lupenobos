@@ -1,6 +1,6 @@
 ---
 const {
-  slug,                               // NY
+  slug,
   title,
   excerpt = "",
   date = "",
@@ -8,7 +8,7 @@ const {
   cover = "/covers/placeholder.jpg",
 } = Astro.props;
 
-const href = `/artikler/${slug}/`;     // NY: alltid norsk rute
+const href = `/articles/${slug}/`; // Bruk "articles" nå
 ---
 <a href={href} class="group card overflow-hidden block">
   <div class="relative aspect-[16/9] bg-white/5">
