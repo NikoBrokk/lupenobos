@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
-// Bygg alle statiske stier for artikler (samling: "articles")
+// Hent slugs fra content-samlingen "articles"
 export async function getStaticPaths() {
   const entries = await getCollection("articles");
   return entries.map((entry) => ({
@@ -13,7 +13,6 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-// Enkle helpers
 const date = new Date(entry.data.pubDate);
 const dato = date.toLocaleDateString("no-NO", {
   year: "numeric",
